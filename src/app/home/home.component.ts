@@ -20,4 +20,10 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+
+  selectedLesson = null;
+  SelectLesson(lesson){
+    this.selectedLesson = lesson;
+  }
 }
