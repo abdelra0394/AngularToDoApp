@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Course } from '../Common/Models/course';
 
 @Component({
   selector: 'app-courses',
@@ -6,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses = [
+  emptyCourse:Course ={
+    id:null,
+    title:'',
+    description:'',
+    percentComplete:null,
+    favorite:null
+  }
+
+  courses : Course[] = [
     {
       id: 1,
       title: 'Angular 13 Fundamentals',
@@ -28,9 +37,19 @@ export class CoursesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectedCourse = null;
+  selectedCourse = this.emptyCourse;
+  originalTitle;
   SelectCourse(course){
-    this.selectedCourse = course;
+    this.selectedCourse = {...course};
+    this.originalTitle = this.selectedCourse.title;
   }
 
+
+  saveCourse(course){
+
+  }
+
+  Reset(){
+    this.SelectCourse({...this.emptyCourse})
+  }
 }
