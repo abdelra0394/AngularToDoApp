@@ -13,7 +13,7 @@
                 <mat-list-item *ngFor ="let course of courses" (click)="SelectCourse(course)">
                     <h3 matLine>{{course.title}}</h3>
                     <p matLine>{{course.description}}</p>
-                    <button mat-icon-button (click)=" $event.stopImmediatePropagation()">
+                    <button mat-icon-button (click)="Delete(course.id); $event.stopImmediatePropagation()">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-list-item>
@@ -74,6 +74,7 @@
                 <mat-card-actions>
 
                 <!-- COURSE ACTIONS -->
+                <button mat-button type="submit">Save</button>
                     <button mat-button (click)="Reset()">Clear</button>
                 </mat-card-actions>
             </form>

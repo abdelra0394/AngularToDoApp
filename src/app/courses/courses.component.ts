@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../Common/Models/course';
+import { CoursesService } from '../Common/Services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -7,6 +8,9 @@ import { Course } from '../Common/Models/course';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
+
+  courses:Course[] = []
+
   emptyCourse:Course ={
     id:null,
     title:'',
@@ -17,11 +21,15 @@ export class CoursesComponent implements OnInit {
 
   
 
-  constructor() { }
+  constructor(private service:CoursesService) { }
 
   ngOnInit(): void {
+    this.Fetch();
   }
 
+  Fetch(){
+    this.service.all().subscribe( (res:any) => { this.courses = res;} )
+  }
   selectedCourse = this.emptyCourse;
   originalTitle;
   SelectCourse(course){
@@ -31,10 +39,26 @@ export class CoursesComponent implements OnInit {
 
 
   saveCourse(course){
-
+    if(course.id){
+      this.UpateCourse(course);
+    }
+    else{
+      this.CreateCourse(course);
+    }
+  }
+  UpateCourse(course) {
+    this.service.Update(course).subscribe((res:any) => {this.Fetch()});
+  }
+  CreateCourse(course) {
+    this.service.Create(course).subscribe((res:any) => {this.Fetch()});
+  }
+  Delete(id:number){
+    this.service.Delete(id).subscribe((res:any) => {this.Fetch()})
   }
 
   Reset(){
     this.SelectCourse({...this.emptyCourse})
   }
 }
+
+
