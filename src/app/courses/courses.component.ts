@@ -31,14 +31,14 @@ export class CoursesComponent implements OnInit {
     this.service.all().subscribe( (res:any) => { this.courses = res;} )
   }
   selectedCourse = this.emptyCourse;
-  originalTitle;
+  
   SelectCourse(course){
-    this.selectedCourse = {...course};
-    this.originalTitle = this.selectedCourse.title;
+    this.selectedCourse = course;
   }
 
 
   saveCourse(course){
+    console.log("here")
     if(course.id){
       this.UpateCourse(course);
     }
